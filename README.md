@@ -16,3 +16,4 @@ For running the application:
 4. To create an apk file, on the terminal, navigate to the root of project, then type --> flutter build apk --release.
 
 
+![Alt text](https://github.com/EmperorAkashi20/UITest/blob/master/Simulator%20Screen%20Shot%20-%20iPhone%2013%20Pro%20Max%20-%202021-11-21%20at%2016.48.46.png?raw=true "Screenshot")
