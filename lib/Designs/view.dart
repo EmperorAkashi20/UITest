@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uitest/Controllers/view_controller.dart';
+import 'package:uitest/Widgets/add_button.dart';
 import 'package:uitest/Widgets/app_bar_title.dart';
+import 'package:uitest/Widgets/bottom_button.dart';
 import 'package:uitest/Widgets/leading_back_button.dart';
 
 class View extends StatelessWidget {
@@ -24,21 +26,12 @@ class View extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Container(
-          height: windowHeight * 0.06,
-          width: windowWidth,
-          color: Colors.black,
-          child: TextButton(
-            onPressed: () {},
-            child: Text(
-              'Proceed to Pick Date and Time',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: windowHeight * 0.02,
-              ),
-            ),
-          ),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+        child: BottomButton(
+          windowHeight: windowHeight,
+          windowWidth: windowWidth,
+          title: "Proceed to Pick Date and Time",
+          onPressed: () {},
         ),
       ),
       body: ListView(
@@ -48,10 +41,17 @@ class View extends StatelessWidget {
             height: windowHeight * 0.42,
             child: Column(
               children: [
-                SizedBox(
+                Container(
                   height: windowHeight * 0.3,
-                  child: Image.network(
-                    'https://www.airedalecooling.com/wp-content/uploads/2018/10/iStock-803892176.jpg',
+                  width: windowWidth,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        viewController.airData.value.data!.imageUrl.toString(),
+                      ),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Padding(
@@ -65,18 +65,20 @@ class View extends StatelessWidget {
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
-                              'Air Conditioner',
-                              style: TextStyle(
+                              viewController.airData.value.data!.categoryName
+                                  .toString(),
+                              style: const TextStyle(
                                 fontSize: 23,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Text(
-                              'Lorem ipsum dolor sit amet, consectetur adipi elit, sed do eiusmod tempor incididunt labore et dolore magna aliqua.',
-                              style: TextStyle(
+                              viewController.airData.value.data!.description
+                                  .toString(),
+                              style: const TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.grey,
@@ -116,73 +118,86 @@ class View extends StatelessWidget {
             shrinkWrap: true,
             itemCount: viewController.airData.value.data!.services!.length,
             itemBuilder: (BuildContext context, int index) {
-              return Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          height: windowHeight * 0.1,
-                          width: windowWidth * 0.18,
-                          child: Image.network(
-                            viewController
-                                .airData.value.data!.services![index].imageUrl
-                                .toString(),
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              viewController.airData.value.data!
-                                  .services![index].serviceName
-                                  .toString(),
-                            ),
-                            Text(
-                              "Avg Cost: " +
-                                  viewController
-                                      .airData.value.data!.services![index].rate
-                                      .toString() +
-                                  " Sar",
-                            ),
-                            Text(
-                              viewController.airData.value.data!
-                                  .services![index].description
-                                  .toString(),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          height: windowHeight * 0.04,
-                          width: windowWidth * 0.2,
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade300,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Add',
-                              style: TextStyle(
-                                fontSize: windowHeight * 0.02,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black,
+              if (index ==
+                  viewController.airData.value.data!.services!.length) {
+                return SizedBox(height: windowHeight * 0.1);
+              } else {
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0, vertical: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: windowHeight * 0.08,
+                            width: windowWidth * 0.18,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.grey.shade200,
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                  viewController.airData.value.data!
+                                      .services![index].imageUrl
+                                      .toString(),
+                                ),
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                viewController.airData.value.data!
+                                    .services![index].serviceName
+                                    .toString(),
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w500),
+                              ),
+                              Text(
+                                "Avg Cost: " +
+                                    viewController.airData.value.data!
+                                        .services![index].rate
+                                        .toString() +
+                                    " Sar",
+                                style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.red),
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                viewController.airData.value.data!
+                                    .services![index].description
+                                    .toString(),
+                                style: TextStyle(
+                                    color: Colors.grey.shade500, fontSize: 15),
+                              ),
+                            ],
+                          ),
+                          AddButton(
+                            windowHeight: windowHeight,
+                            windowWidth: windowWidth,
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Divider(
-                    color: Colors.grey.shade300,
-                    thickness: 2,
-                  ),
-                ],
-              );
+                    Divider(
+                      color: Colors.grey.shade300,
+                      thickness: 2,
+                    ),
+                  ],
+                );
+              }
             },
-          )
+          ),
+          // SizedBox(
+          //   height: windowHeight,
+          // ),
         ],
       ),
     );
