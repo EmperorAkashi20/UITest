@@ -15,5 +15,4 @@ For running the application:
 3. Once you have everything, you can run the code either in debug mode or you can create a public build and install it on your physical device.
 4. To create an apk file, on the terminal, navigate to the root of project, then type --> flutter build apk --release.
 
-![Screenshot](Simulator Screen Shot - iPhone 13 Pro Max - 2021-11-21 at 16.48.46)
 
