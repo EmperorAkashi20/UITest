@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:uitest/Controllers/view_controller.dart';
 import 'package:uitest/Widgets/app_bar_title.dart';
 import 'package:uitest/Widgets/leading_back_button.dart';
 
 class View extends StatelessWidget {
-  const View({Key? key}) : super(key: key);
+  final ViewController viewController = Get.put(ViewController());
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +19,24 @@ class View extends StatelessWidget {
         centerTitle: false,
         title: const AppBarTitle(
           title: 'Select Service',
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Container(
+          height: windowHeight * 0.06,
+          width: windowWidth,
+          color: Colors.black,
+          child: TextButton(
+            onPressed: () {},
+            child: Text(
+              'Proceed to Pick Date and Time',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: windowHeight * 0.02,
+              ),
+            ),
+          ),
         ),
       ),
       body: ListView(

@@ -6,7 +6,7 @@ class NavRouter {
   static final generateRoute = [
     GetPage(
       name: view,
-      page: () => const View(),
+      page: () => View(),
     ),
   ];
 }
