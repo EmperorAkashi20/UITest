@@ -7,6 +7,8 @@ import 'package:uitest/Widgets/leading_back_button.dart';
 class View extends StatelessWidget {
   final ViewController viewController = Get.put(ViewController());
 
+  View({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     double windowHeight = MediaQuery.of(context).size.height;
@@ -110,6 +112,77 @@ class View extends StatelessWidget {
             color: Colors.grey.shade300,
             thickness: 2,
           ),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: viewController.airData.value.data!.services!.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          height: windowHeight * 0.1,
+                          width: windowWidth * 0.18,
+                          child: Image.network(
+                            viewController
+                                .airData.value.data!.services![index].imageUrl
+                                .toString(),
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              viewController.airData.value.data!
+                                  .services![index].serviceName
+                                  .toString(),
+                            ),
+                            Text(
+                              "Avg Cost: " +
+                                  viewController
+                                      .airData.value.data!.services![index].rate
+                                      .toString() +
+                                  " Sar",
+                            ),
+                            Text(
+                              viewController.airData.value.data!
+                                  .services![index].description
+                                  .toString(),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          height: windowHeight * 0.04,
+                          width: windowWidth * 0.2,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade300,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Add',
+                              style: TextStyle(
+                                fontSize: windowHeight * 0.02,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    color: Colors.grey.shade300,
+                    thickness: 2,
+                  ),
+                ],
+              );
+            },
+          )
         ],
       ),
     );

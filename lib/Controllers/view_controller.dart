@@ -9,6 +9,8 @@ import 'package:uitest/Services.dart/core_services.dart';
 import 'package:uitest/url.dart';
 
 class ViewController extends GetxController {
+  Rx<AirConditionerResponseModel> airData = AirConditionerResponseModel().obs;
+
   @override
   // ignore: must_call_super
   onInit() {
@@ -35,7 +37,8 @@ class ViewController extends GetxController {
     } else {
       var result = AirConditionerResponseModel.fromJson(data);
       if (result.status ?? false) {
-        Get.back();
+        airData.value = result;
+        airData.refresh();
         Get.snackbar("Success", "${result.message}",
             snackPosition: SnackPosition.TOP, backgroundColor: Colors.white);
       } else {
